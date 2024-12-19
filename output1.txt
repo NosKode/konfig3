@@ -1,2 +1,0 @@
-var CONST 42;
-var ARRAY @( ARRAY 1 2 3 + );

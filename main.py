@@ -31,14 +31,26 @@ def evaluate_postfix(expression):
 
     return stack[0]
 
+def process_array(key, array):
+    """
+    Processes arrays into their computed values and returns a postfix expression or result.
+    """
+    if all(isinstance(x, (int, float)) for x in array):
+        # Replace array with a computed value using postfix calculation
+        expression = " ".join(map(str, array)) + " +" * (len(array) - 1)
+        result = evaluate_postfix(expression)
+        return f"@( {key} {expression} )", result
+    else:
+        raise SyntaxError(f"Invalid array for key '{key}': {array}")
+
 def process_value(key, value):
     """
     Processes values into the custom configuration format.
     """
     if isinstance(value, list):
-        # Convert array to a postfix calculation
-        postfix_expression = f"@( {key} {' '.join(map(str, value))} + )"
-        return postfix_expression
+        # Convert array to a postfix calculation and compute its value
+        postfix_expression, computed_value = process_array(key, value)
+        return computed_value
     elif isinstance(value, (int, float)):
         return str(value)
     elif isinstance(value, str) and re.fullmatch(r"[A-Z]+", value):

@@ -1,0 +1,6 @@
+var AA 6;
+var BB 10;
+var CC CONSTANT;
+var DD 9;
+var LEN_EXAMPLE 30;
+var RESULT 18;
